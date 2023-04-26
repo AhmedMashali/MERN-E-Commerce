@@ -1,4 +1,6 @@
 const Product = require("../models/Product");
+const Category = require('../models/Category');
+
 const {
     verifyToken,
     verifyTokenAndAuthorization, 
@@ -75,5 +77,23 @@ router.get("/", async (req, res) =>{
         res.status(500).json(error);
     }
 });
+
+router.get('/category', async (req, res) =>{
+    let category = await Category.find();
+    res.status(200).json({
+        message: 'Categories retreived.',
+        categories: category
+    })
+});
+
+router.post('/create-category',verifyTokenAndAdmin, async (req, res) =>{
+    const newCategory = new Category(req.body);
+    try {
+        const savedCategory = await newCategory.save();
+        res.status(200).json(savedCategory);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
 
 module.exports = router;
