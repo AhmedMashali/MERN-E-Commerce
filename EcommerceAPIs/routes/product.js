@@ -78,7 +78,7 @@ router.get("/", async (req, res) =>{
     }
 });
 
-router.get('/category', async (req, res) =>{
+router.get('/categories', async (req, res) =>{
     let category = await Category.find();
     res.status(200).json({
         message: 'Categories retreived.',
@@ -91,6 +91,19 @@ router.post('/create-category',verifyTokenAndAdmin, async (req, res) =>{
     try {
         const savedCategory = await newCategory.save();
         res.status(200).json(savedCategory);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+router.post('/category', async(req, res)=>{
+    const categoryId = req.body.categoryId;
+    try {
+        const products = await Product.find({ categoryId: categoryId });
+        res.status(200).json({
+            message: 'Products belong to this category retreived successfuly.',
+            products: products
+        })
     } catch (error) {
         res.status(500).json(error);
     }
