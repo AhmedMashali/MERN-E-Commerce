@@ -86,8 +86,11 @@ router.get('/categories', async (req, res) =>{
     })
 });
 
-router.post('/create-category',verifyTokenAndAdmin, async (req, res) =>{
-    const newCategory = new Category(req.body);
+router.post('/create-category',async (req, res) =>{
+    const newCategory = new Category({
+        categoryType:req.body.categoryType,
+        img: req.body.img
+    });
     try {
         const savedCategory = await newCategory.save();
         res.status(200).json(savedCategory);
@@ -96,8 +99,8 @@ router.post('/create-category',verifyTokenAndAdmin, async (req, res) =>{
     }
 });
 
-router.post('/category', async(req, res)=>{
-    const categoryId = req.body.categoryId;
+router.get('/category/:categoryId', async(req, res)=>{
+    const categoryId = req.params.categoryId;
     try {
         const products = await Product.find({ categoryId: categoryId });
         res.status(200).json({
