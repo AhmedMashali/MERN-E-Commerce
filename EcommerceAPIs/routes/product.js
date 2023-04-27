@@ -99,10 +99,10 @@ router.post('/create-category',async (req, res) =>{
     }
 });
 
-router.get('/category/:categoryId', async(req, res)=>{
-    const categoryId = req.params.categoryId;
+router.get('/category/:category', async(req, res)=>{
+    const category = req.params.category;
     try {
-        const products = await Product.find({ categoryId: categoryId });
+        const products = await Product.find({ categoryType: category });
         res.status(200).json({
             message: 'Products belong to this category retreived successfuly.',
             products: products
