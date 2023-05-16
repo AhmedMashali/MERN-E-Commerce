@@ -23,7 +23,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res)=>{
 //Update Product
 router.put("/:id", verifyTokenAndAdmin, async (req, res, next)=>{
     try {
-        const updatedProduct = await User.findByIdAndUpdate(
+        const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id, {
                 $set: req.body,
             },
@@ -57,18 +57,16 @@ router.get("/find/:id", async (req, res) =>{
 
 //Get All Products
 router.get("/", async (req, res) =>{
-    const queryNew = req.query.new;
-    const queryCategory = req.query.category;
+    const querySort = req.query.sort;
+    console.log(querySort);
     try {
         let products;
-        if(queryNew){
-            products = await Product.find().sort({ createdAt: -1 }).limit(1);
-        }else if(queryCategory){
-            products = await Product.find({
-                categories: {
-                    $in: [queryCategory],
-                },
-            });
+        if(querySort == 'asc'){
+            products = await Product.find().sort({ price: 1 });
+            console.log(products);
+        }else if(querySort == 'desc'){
+            products = await Product.find().sort({ price: -1 });
+
         }else{
             products = await Product.find();
         }

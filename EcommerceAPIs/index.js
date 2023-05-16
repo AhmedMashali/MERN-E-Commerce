@@ -31,6 +31,12 @@ app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
+app.use((error, req, res, next) => {
+  const status = error.statusCode || 500;
+  const data = error.data;
+  const message = error.message;
+  res.status(status).json({ message: message, data: data });
+});
 
 app.listen(process.env.PORT || PORTc, () => {
   console.log(`Backend is running on port ${PORTc}`);
