@@ -9,7 +9,7 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
 const cors = require("cors");
-
+const path = require('path');
 dotenv.config();
 const PORTc = 5000;
 
@@ -20,7 +20,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
+  app.use(express.static('public'));
+app.use('/images' , express.static(path.join(__dirname, "images")));
 app.use(express.json());
 
 app.use(cors());  //used for payment
