@@ -8,20 +8,6 @@
   height: 280px;
   z-index: 222;
 }
-.circle {
-  width: 200px;
-  height: 200px;
-  background-color: white;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  position: absolute;
-  top: 20%;
-  left: 12%;
-  z-index: 0;
-}
 .layer {
   position: absolute;
   opacity: 0;
@@ -71,4 +57,12 @@
 .link {
   text-decoration: none;
   color: black;
+}
+
+.button {
+  background-color: white;
+  border: none;
+  padding: 10px 15px;
+  box-shadow: 1px 1px 5px rgb(168, 167, 167);
+  font-weight: 500;
 }
